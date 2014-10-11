@@ -1,0 +1,6 @@
+C:\Personal\Preparation\Algorithms\DynamicProgramming\DynamicProgramming\bin\Debug\DynamicProgramming.exe.config
+C:\Personal\Preparation\Algorithms\DynamicProgramming\DynamicProgramming\bin\Debug\DynamicProgramming.exe
+C:\Personal\Preparation\Algorithms\DynamicProgramming\DynamicProgramming\bin\Debug\DynamicProgramming.pdb
+C:\Personal\Preparation\Algorithms\DynamicProgramming\DynamicProgramming\obj\Debug\DynamicProgramming.csprojResolveAssemblyReference.cache
+C:\Personal\Preparation\Algorithms\DynamicProgramming\DynamicProgramming\obj\Debug\DynamicProgramming.exe
+C:\Personal\Preparation\Algorithms\DynamicProgramming\DynamicProgramming\obj\Debug\DynamicProgramming.pdb
