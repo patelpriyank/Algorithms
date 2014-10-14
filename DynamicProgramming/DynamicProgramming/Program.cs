@@ -27,6 +27,14 @@ namespace DynamicProgramming
             var elapsedMs = watch.ElapsedMilliseconds;
             Console.WriteLine("Total execution time in Milliseconds = " + elapsedMs);
 
+
+            //Dijkstra Heap
+            DijkstraHeap kiloManX = new DijkstraHeap();
+            string[] damageChart = new string[] { "070", "500", "140" };
+            int[] bossHealth = new int[] { 150, 150, 150 };
+
+            kiloManX.LeastShots(damageChart, bossHealth);
+
             Console.ReadKey();
         }
     }
