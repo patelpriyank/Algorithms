@@ -11,6 +11,8 @@ namespace DynamicProgramming
     {
         static void Main(string[] args)
         {
+            var watch = Stopwatch.StartNew();
+
            /* var badNeighbor = new BadNeighbors();
             var donations = new int[] { 10, 3, 2, 5, 7, 8 };
             int result = badNeighbor.MaxDonations(donations);
@@ -21,11 +23,8 @@ namespace DynamicProgramming
             var blooms = new int[] { 296, 136, 306, 94, 345, 37, 11, 133, 269, 276, 199, 348, 277, 324, 146, 252, 52, 138, 37, 5, 231, 314, 230, 138, 202, 340, 235, 58, 99, 123, 272, 67, 48, 277 }; //{ 1, 5, 10, 15, 20 };
             var wilts = new int[] { 301, 317, 339, 271, 361, 148, 117, 291, 357, 331, 282, 354, 342, 341, 178, 261, 158, 357, 177, 208, 323, 336, 256, 182, 228, 342, 326, 236, 358, 315, 325, 200, 358, 341 }; //{ 5, 10, 14, 20, 25 };
 
-            var watch = Stopwatch.StartNew();
+            
             var result = new FlowerGarden_SelectionSort().Arrangement(heights, blooms, wilts);
-            watch.Stop();
-            var elapsedMs = watch.ElapsedMilliseconds;
-            Console.WriteLine("Total execution time in Milliseconds = " + elapsedMs);
 */
 
             //Dijkstra Heap
@@ -34,6 +33,14 @@ namespace DynamicProgramming
             int[] bossHealth = new int[] { 150, 150, 150, 150 };
 
             kiloManX.LeastShots(damageChart, bossHealth);
+
+
+            
+            
+            
+            watch.Stop();
+            var elapsedMs = watch.ElapsedMilliseconds;
+            Console.WriteLine("Total execution time in Milliseconds = " + elapsedMs);
 
             Console.ReadKey();
         }

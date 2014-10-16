@@ -160,9 +160,9 @@ namespace DynamicProgramming
                         }
                     }//end of traversing all other bosses for boss i
 
-                  /*  //if this boss i cannot be killed/reached with any of existing weapons of dead boss, then that means he cannot be reached by this route. don't add it to the heap.
+                    //if this boss i cannot be killed/reached with any of existing weapons of dead boss, then that means he cannot be reached by this route. don't add it to the heap.
                     if(deadBossWithLowestShotsToThisBoss == -1 && top.bestIncomingBossToHere != -99)
-                        continue;*/
+                        continue;
 
                     //insert the lowest shots route to this remaining boss i on this route which can be killed with already acquired weapons of previously dead bosses
                     string route = "\n Kill this remaining boss " + i + " from dead boss " + deadBossWithLowestShotsToThisBoss + " with his weapon shots " + bestShotsSoFar;
