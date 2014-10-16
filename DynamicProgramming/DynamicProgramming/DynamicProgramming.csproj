@@ -45,6 +45,7 @@
     <Compile Include="Circuit.cs" />
     <Compile Include="DijkstraHeap2.cs" />
     <Compile Include="DijkstraHeap.cs" />
+    <Compile Include="Dijkstra_IslandFerries.cs" />
     <Compile Include="FlowerGarden3.cs" />
     <Compile Include="FlowerGarden_SelectionSort.cs" />
     <Compile Include="FlowerGarden2.cs" />

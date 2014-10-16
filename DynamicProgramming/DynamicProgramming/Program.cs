@@ -27,16 +27,19 @@ namespace DynamicProgramming
             var result = new FlowerGarden_SelectionSort().Arrangement(heights, blooms, wilts);
 */
 
-            //Dijkstra Heap
+         /* //Dijkstra Heap
             var kiloManX = new DijkstraHeap2();
             string[] damageChart = new string[] { "1542", "7935", "1139", "8882" };
             int[] bossHealth = new int[] { 150, 150, 150, 150 };
 
-            kiloManX.LeastShots(damageChart, bossHealth);
+            kiloManX.LeastShots(damageChart, bossHealth);*/
 
 
-            
-            
+            //IslandFerry
+            Dijkstra_IslandFerries islandFerries = new Dijkstra_IslandFerries();
+            String[] legs = new[] {"0-1 1-2 2-3", "0-1 2-3"};
+            String[] prices = new[] {"1 10", "20 25", "50 50", "1000 1000", "1000 1000"};
+            islandFerries.TravelCheap(legs, prices);
             
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
