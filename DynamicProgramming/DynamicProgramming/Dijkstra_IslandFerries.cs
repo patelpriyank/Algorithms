@@ -1,4 +1,5 @@
-﻿using System;
+﻿/*
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -52,18 +53,20 @@ namespace DynamicProgramming
 
     class TravelRoute
     {
+        public List<Island> VisitedIslandsSoFar { get; set; } 
         public ulong VisitedIslands { get; set; } //bit location = island number, Max 63 islands supported
         public int IslandCurrentlyOn { get; set; }
         public int TotalPaidSoFar { get; set; }
-        public int LastFerryTakenToArriveIslandCurrentlyOn { get; set; } //bit location = ferry number, Max 32 ferries supported
+        //public int LastFerryTakenToArriveIslandCurrentlyOn { get; set; } //bit location = ferry number, Max 32 ferries supported
         public uint TicketsInHand { get; set; } //bit location = that ferry number's ticket
 
-        public TravelRoute(ulong visitedIslands, int islandCurrentlyOn, int totalPaidSoFar, int lastFerryTakenToArriveIslandCurrentlyOn, uint ticketsInHand)
+        public TravelRoute(ulong visitedIslands, int islandCurrentlyOn, int totalPaidSoFar, uint ticketsInHand)
         {
             VisitedIslands = visitedIslands;
+            VisitedIslandsSoFar = new List<Island>();
             IslandCurrentlyOn = islandCurrentlyOn;
             TotalPaidSoFar = totalPaidSoFar;
-            LastFerryTakenToArriveIslandCurrentlyOn = lastFerryTakenToArriveIslandCurrentlyOn;
+            //LastFerryTakenToArriveIslandCurrentlyOn = lastFerryTakenToArriveIslandCurrentlyOn;
             TicketsInHand = ticketsInHand;
         }
     }
@@ -76,6 +79,8 @@ namespace DynamicProgramming
         public int ID { get; set; }
 
         public List<Ferry> AvailableFerries { get; set; }
+        public int ArrivalFerryTaken { get; set; }
+        public int DepartureFerryTaken { get; set; }
 
         public Island()
         {
@@ -154,6 +159,8 @@ namespace DynamicProgramming
             {
                 var tmpIsland = new Island();
                 tmpIsland.ID = island;
+                tmpIsland.ArrivalFerryTaken = -1;
+                tmpIsland.DepartureFerryTaken = -1;
 
                 foreach (var ferryKey in allFerries.Keys)
                 {
@@ -179,7 +186,7 @@ namespace DynamicProgramming
          * There will be up to 40 islands and 10 ferry services. Given the list of legs offered by each ferry service and the prices of tickets on each island, 
          * for each island compute the cost of traveling there from your initial island (island 0), and return the costs as a int[]. 
          * The size of your returned int[] should be one less than the number of islands. If a given island is unreachable, return -1 for the cost to that island.
-         */
+         #1#
         public Dictionary<string, int> TravelCheap(String[] legs, String[] prices, int destinationIsland)
         {
            _setup(legs, prices);
@@ -192,7 +199,9 @@ namespace DynamicProgramming
         private int _dijkstraAlgo(int destinationIsland)
         {
             //start with island 0 - setting first bit to 1 as '00001'
-            var start = new TravelRoute(1, 0, 0, 0, 0); 
+            var startIsland = allIslands[0];
+            var start = new TravelRoute(1, 0, 0, 0);
+            start.VisitedIslandsSoFar.Add(startIsland);
 
             var priorityQueue = new SortedSet<TravelRoute>(new TravelRouteComparer());
             priorityQueue.Add(start);
@@ -215,7 +224,7 @@ namespace DynamicProgramming
                 foreach (var remainingIsland in allIslands)
                 {
                     //if this island is visited on this route then don't do anything
-                    if (((currentRoute.VisitedIslands >> remainingIsland) & 1) == 1)
+                    if (((currentRoute.VisitedIslands >> remainingIsland.ID) & 1) == 1)
                         continue;
 
                     int cheapestFerryToThisIsland = -1;
@@ -302,3 +311,4 @@ namespace DynamicProgramming
         }
     }
 }
+*/
