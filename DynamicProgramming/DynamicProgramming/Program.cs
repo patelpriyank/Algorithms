@@ -39,7 +39,7 @@ namespace DynamicProgramming
             Dijkstra_IslandFerries islandFerries = new Dijkstra_IslandFerries();
             String[] legs = new[] {"0-1 1-2 2-3", "0-1 2-3"};
             String[] prices = new[] {"1 10", "20 25", "50 50", "1000 1000", "1000 1000"};
-            islandFerries.TravelCheap(legs, prices);
+            islandFerries.TravelCheap(legs, prices, 3);
             
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;

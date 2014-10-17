@@ -54,11 +54,11 @@ namespace DynamicProgramming
     {
         public ulong VisitedIslands { get; set; } //bit location = island number, Max 63 islands supported
         public int IslandCurrentlyOn { get; set; }
-        public uint TotalPaidSoFar { get; set; }
+        public int TotalPaidSoFar { get; set; }
         public int LastFerryTakenToArriveIslandCurrentlyOn { get; set; } //bit location = ferry number, Max 32 ferries supported
         public uint TicketsInHand { get; set; } //bit location = that ferry number's ticket
 
-        public TravelRoute(ulong visitedIslands, int islandCurrentlyOn, uint totalPaidSoFar, int lastFerryTakenToArriveIslandCurrentlyOn, uint ticketsInHand)
+        public TravelRoute(ulong visitedIslands, int islandCurrentlyOn, int totalPaidSoFar, int lastFerryTakenToArriveIslandCurrentlyOn, uint ticketsInHand)
         {
             VisitedIslands = visitedIslands;
             IslandCurrentlyOn = islandCurrentlyOn;
@@ -89,8 +89,11 @@ namespace DynamicProgramming
 
             if (!_costToOtherIslands.ContainsKey(key))
             {
-                AvailableFerries.Add(ferry);
                 _costToOtherIslands.Add(key, cost);
+
+                if(AvailableFerries.All(e => e.ID != ferry.ID))
+                    AvailableFerries.Add(ferry);
+
             }
         }
 
@@ -119,11 +122,16 @@ namespace DynamicProgramming
 
     public class Dijkstra_IslandFerries
     {
-        Dictionary<int, Island> allIslands = new Dictionary<int, Island>();
+        private const int MAX_TICKETS_ALLOWED = 3;
+        private uint MAX_TICKETS_HASH;
+
+        List<Island> allIslands = new List<Island>();
         Dictionary<int, Ferry> allFerries = new Dictionary<int, Ferry>();
 
         private void _setup(String[] legs, String[] prices)
         {
+            MAX_TICKETS_HASH = Convert.ToUInt32(Math.Pow(2, MAX_TICKETS_ALLOWED) - 1);
+
             //set up ferries
              for (int ferry = 0; ferry < legs.Length; ferry++)
                 {
@@ -163,7 +171,7 @@ namespace DynamicProgramming
                     }
                 }
                 
-                allIslands.Add(island, tmpIsland);
+                allIslands.Add(tmpIsland);
             }
         }
 
@@ -172,19 +180,19 @@ namespace DynamicProgramming
          * for each island compute the cost of traveling there from your initial island (island 0), and return the costs as a int[]. 
          * The size of your returned int[] should be one less than the number of islands. If a given island is unreachable, return -1 for the cost to that island.
          */
-        public Dictionary<string, int> TravelCheap(String[] legs, String[] prices)
+        public Dictionary<string, int> TravelCheap(String[] legs, String[] prices, int destinationIsland)
         {
            _setup(legs, prices);
 
-            _dijkstraAlgo();
+           _dijkstraAlgo(destinationIsland);
 
             return null;
         }
 
-        private uint _dijkstraAlgo(int destinationIsland = 3)
+        private int _dijkstraAlgo(int destinationIsland)
         {
-            //start with island 0
-            var start = new TravelRoute(0, 0, 0, 0, 0);
+            //start with island 0 - setting first bit to 1 as '00001'
+            var start = new TravelRoute(1, 0, 0, 0, 0); 
 
             var priorityQueue = new SortedSet<TravelRoute>(new TravelRouteComparer());
             priorityQueue.Add(start);
@@ -200,42 +208,57 @@ namespace DynamicProgramming
                 }
 
                 //determing cheapest route to destination island for this current island
-                var currentIsland = allIslands[currentRoute.IslandCurrentlyOn];
+                var currentIsland = allIslands.First(e => e.ID == currentRoute.IslandCurrentlyOn);
 
                 //find the cheapest route to all other remaining islands from current island
-                for (int remainingIsland = 0; remainingIsland < allIslands.Count; remainingIsland++)
+                //for (int remainingIsland = 0; remainingIsland < allIslands.Count; remainingIsland++)
+                foreach (var remainingIsland in allIslands)
                 {
+                    //if this island is visited on this route then don't do anything
+                    if (((currentRoute.VisitedIslands >> remainingIsland) & 1) == 1)
+                        continue;
+
                     int cheapestFerryToThisIsland = -1;
-                    int cheapestCostToThisIsland = 0;
+                    int cheapestCostToThisIsland = int.MaxValue;
 
-                    //loop through already visited islands to consider buying tickets from those islands
-                    for (int visitedIsland = 0; visitedIsland < allIslands.Count; visitedIsland++)
+                    //compare ticket price of each ferry that leaves from this island to this remainingIsland between price of all visited islands ticket price for the same ferry
+                    foreach (var availableFerry in currentIsland.AvailableFerries)
                     {
-                        if (visitedIsland == remainingIsland) continue;
-
-                        if (((currentRoute.VisitedIslands >> visitedIsland) & 1) == 1) //if this island is visited on this route then,
+                        //loop through already visited islands to check the price for this ferry
+                        foreach (var visitedIsland in allIslands)
                         {
-                            //get available ferries from current island
-                            var availableFerries = currentIsland.AvailableFerries;
+                            //if this ferry does not have a route between these two islands then continue to next ferry
+                            if (availableFerry.FromToLeg[visitedIsland.ID, remainingIsland.ID] == 0)
+                                continue;
 
-                            //pick the cheapest ferry to this remainingIsland, either by purchasing ticket from this island or all previously visited island
-                            //for (int availableFerry = 0; availableFerry < availableFerries.Count; availableFerry++)
-                            foreach (var availableFerry in currentIsland.AvailableFerries)
+                            if (visitedIsland.ID == remainingIsland.ID) continue;
+
+                            //consider this island only it was visited on this route
+                            if (((currentRoute.VisitedIslands >> visitedIsland.ID) & 1) == 1)
                             {
-                                /*//if this is the ferry you took last time, then you definitely did not carry another ticket for this ferry. 
-                                //so keep out of consideration  this ferry's ticket price from previous islands.
-                                //But you can consider buying ticket for this ferry from current island
-                                if (availableFerry.ID == currentRoute.LastFerryTakenToArriveIslandCurrentlyOn)
+                                //what are the scenarios when i would have been able to purchase ticket for this ferry from this island?
+                                //1. I did not travel through this ferry between this visitedIsland to currentIsland, hence allowing me to carry that ticket all the way here.
+                                //2. i did not have 3 tickets in hand already
+                                //Hint. Store the route taken to individual Island object. 
+
+
+
+                                //you can buy ticket for this ferry, only if you currently do not hold a ticket for this ferry AND you don't already carry 3 tickets
+                                //"Anti-competitive regulations prohibit you from carrying more than one ticket for the same ferry service, and from carrying more than three tickets total."
+                                if (((currentRoute.TicketsInHand >> availableFerry.ID) & 1) != 1 &&
+                                    ((currentRoute.TicketsInHand & MAX_TICKETS_HASH) == MAX_TICKETS_HASH))
                                 {
-                                    if (visitedIsland == currentIsland.ID)
+                                    if (visitedIsland.ID == currentIsland.ID)
                                     {
                                         //you can buy ticket for this ferry, only if you currently do not hold a ticket for this ferry.
                                         //"Anti-competitive regulations prohibit you from carrying more than one ticket for the same ferry service, and from carrying more than three tickets total."
                                         if (((currentRoute.TicketsInHand >> availableFerry.ID) & 1) != 1)
                                         {
-                                            int ferryCostToAvailabeIsland = currentIsland.CalculateCost(remainingIsland, availableFerry.ID);
+                                            int ferryCostToAvailabeIsland =
+                                                currentIsland.CalculateCost(remainingIsland.ID, availableFerry.ID);
 
-                                            if (ferryCostToAvailabeIsland != -1 && cheapestCostToThisIsland > ferryCostToAvailabeIsland)
+                                            if (ferryCostToAvailabeIsland != -1 &&
+                                                cheapestCostToThisIsland > ferryCostToAvailabeIsland)
                                             {
                                                 cheapestCostToThisIsland = ferryCostToAvailabeIsland;
                                                 cheapestFerryToThisIsland = availableFerry.ID;
@@ -244,27 +267,38 @@ namespace DynamicProgramming
                                     }
                                 }
                                 else
-                                {*/
-                                    //you can buy ticket for this ferry, only if you currently do not hold a ticket for this ferry.
+                                {
+                                    //you can buy ticket for this ferry, only if you currently do not hold a ticket for this ferry AND you don't already carry 3 tickets
                                     //"Anti-competitive regulations prohibit you from carrying more than one ticket for the same ferry service, and from carrying more than three tickets total."
-                                    if (((currentRoute.TicketsInHand >> availableFerry.ID) & 1) != 1)
+                                    if (((currentRoute.TicketsInHand >> availableFerry.ID) & 1) != 1 &&
+                                        ((currentRoute.TicketsInHand & MAX_TICKETS_HASH) == MAX_TICKETS_HASH))
                                     {
-                                        int ferryCostToAvailabeIsland = currentIsland.CalculateCost(remainingIsland, availableFerry.ID);
+                                        int ferryCostToAvailabeIsland = visitedIsland.CalculateCost(remainingIsland.ID,
+                                            availableFerry.ID);
 
-                                        if (ferryCostToAvailabeIsland != -1 && cheapestCostToThisIsland > ferryCostToAvailabeIsland)
+                                        if (ferryCostToAvailabeIsland != -1 &&
+                                            cheapestCostToThisIsland > ferryCostToAvailabeIsland)
                                         {
                                             cheapestCostToThisIsland = ferryCostToAvailabeIsland;
                                             cheapestFerryToThisIsland = availableFerry.ID;
                                         }
                                     }
-                                    
-                                //}
+
+                                }
                             }
-                        }
-                    }
-                }
+                        } //if visited island
+                    } //each available ferry from this island
+
+                    ulong visitedIslands = (currentRoute.VisitedIslands | Convert.ToUInt64(1 << remainingIsland.ID));
+                    int totalPaidSoFar = currentRoute.TotalPaidSoFar + cheapestCostToThisIsland;
+                    uint ticketsOnHand = (currentRoute.TicketsInHand | Convert.ToUInt32(1 << cheapestFerryToThisIsland));
+
+                    priorityQueue.Add(new TravelRoute(visitedIslands,remainingIsland.ID, totalPaidSoFar,cheapestFerryToThisIsland, ticketsOnHand));
+
+                } //each remaining island for loop
             }
 
+            return -1;
         }
     }
 }
