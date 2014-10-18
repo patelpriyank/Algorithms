@@ -52,6 +52,7 @@
     <Compile Include="FlowerGarden2.cs" />
     <Compile Include="FlowerGarden.cs" />
     <Compile Include="Helpers\BinaryHeap.cs" />
+    <Compile Include="Helpers\Helper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
