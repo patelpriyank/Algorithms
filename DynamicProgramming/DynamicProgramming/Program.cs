@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DynamicProgramming.Helpers;
 
 namespace DynamicProgramming
 {
@@ -35,12 +36,17 @@ namespace DynamicProgramming
             kiloManX.LeastShots(damageChart, bossHealth);*/
 
 
-            //IslandFerry
+           /* //IslandFerry
             Dijkstra_IslandFerries islandFerries = new Dijkstra_IslandFerries();
             String[] legs = new[] { "0-1 0-3", "0-2" };
             String[] prices = new[] { "5 7", "1000 1000", "1000 1000", "1000 1000" };
             string allRoutes = islandFerries.TravelCheap(legs, prices);
-            Console.WriteLine(allRoutes);
+            Console.WriteLine(allRoutes);*/
+
+            var teamBuilder = new TeamBuilder();
+            var paths = new[] { "0110000", "1000100", "0000001", "0010000", "0110000", "1000010", "0001000" };
+            int[] results = teamBuilder.SpecialLocations(paths);
+            Console.WriteLine(Helper.Print(results));
 
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
