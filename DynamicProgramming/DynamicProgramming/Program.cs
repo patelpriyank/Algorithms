@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DynamicProgramming.Greedy;
 using DynamicProgramming.Helpers;
 
 namespace DynamicProgramming
@@ -43,11 +44,18 @@ namespace DynamicProgramming
             string allRoutes = islandFerries.TravelCheap(legs, prices);
             Console.WriteLine(allRoutes);*/
 
-            var teamBuilder = new TeamBuilder();
+           /* var teamBuilder = new TeamBuilder();
             var paths = new[] { "0110000", "1000100", "0000001", "0010000", "0110000", "1000010", "0001000" };
             int[] results = teamBuilder.SpecialLocations(paths);
-            Console.WriteLine(Helper.Print(results));
+            Console.WriteLine(Helper.Print(results));*/
 
+            var boxingCredit = new BoxingCredit();
+            int[] a = new[] { 1, 2, 3, 4, 5, 6 };
+            int[] b = new[] { 1, 2, 3, 4, 5, 6, 7 };
+            int[] c = new[] { 1, 2, 3, 4, 5, 6 };
+            int[] d = new[] { 0, 1, 2 };
+            int[] e = new[] { 1, 2, 3, 4, 5, 6, 7, 8 };
+            int result = boxingCredit.MaxCredit(a, b, c, d, e);
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
             Console.WriteLine("Total execution time in Milliseconds = " + elapsedMs);
