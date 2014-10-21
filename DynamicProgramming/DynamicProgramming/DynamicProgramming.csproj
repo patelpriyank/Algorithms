@@ -41,22 +41,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BadNeighbors.cs" />
-    <Compile Include="Circuit.cs" />
-    <Compile Include="DijkstraHeap2.cs" />
-    <Compile Include="DijkstraHeap.cs" />
-    <Compile Include="Dijkstra_IslandFerries2.cs" />
-    <Compile Include="Dijkstra_IslandFerries.cs" />
-    <Compile Include="FlowerGarden3.cs" />
-    <Compile Include="FlowerGarden_SelectionSort.cs" />
-    <Compile Include="FlowerGarden2.cs" />
-    <Compile Include="FlowerGarden.cs" />
+    <Compile Include="Dynamic Programing Technique\BadNeighbors.cs" />
+    <Compile Include="Graph\Circuit.cs" />
+    <Compile Include="Graph\DijkstraHeap2.cs" />
+    <Compile Include="Graph\DijkstraHeap.cs" />
+    <Compile Include="Graph\Dijkstra_IslandFerries2.cs" />
+    <Compile Include="Graph\Dijkstra_IslandFerries.cs" />
+    <Compile Include="Dynamic Programing Technique\FlowerGarden3.cs" />
+    <Compile Include="Dynamic Programing Technique\FlowerGarden_SelectionSort.cs" />
+    <Compile Include="Dynamic Programing Technique\FlowerGarden2.cs" />
+    <Compile Include="Dynamic Programing Technique\FlowerGarden.cs" />
+    <Compile Include="Graph\MaxFlow_Ford_Fulkerson_DijkstraHeap.cs" />
+    <Compile Include="Graph\MaxFlow_Ford_Fulkerson_Method.cs" />
     <Compile Include="Greedy\BoxingCredit.cs" />
     <Compile Include="Helpers\BinaryHeap.cs" />
     <Compile Include="Helpers\Helper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TeamBuilder.cs" />
+    <Compile Include="Graph\TeamBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
