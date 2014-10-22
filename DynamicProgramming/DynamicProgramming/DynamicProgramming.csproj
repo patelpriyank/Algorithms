@@ -51,6 +51,7 @@
     <Compile Include="Dynamic Programing Technique\FlowerGarden_SelectionSort.cs" />
     <Compile Include="Dynamic Programing Technique\FlowerGarden2.cs" />
     <Compile Include="Dynamic Programing Technique\FlowerGarden.cs" />
+    <Compile Include="Graph\MaxBipartiteMatching_Hopcroft–KarpAlgorithm.cs" />
     <Compile Include="Graph\MaxFlow_Ford_Fulkerson_DijkstraHeap.cs" />
     <Compile Include="Graph\MaxFlow_Ford_Fulkerson_Method.cs" />
     <Compile Include="Greedy\BoxingCredit.cs" />

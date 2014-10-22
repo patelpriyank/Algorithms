@@ -76,7 +76,7 @@ namespace DynamicProgramming
             int maxFlow = fordFulkersonAlgo.MaxFlowProblem_FordFulkersonMethod(graph,0,5);
             Console.WriteLine("Max flow = " + maxFlow);*/
 
-            //<8> Max-Flow problem with Dijkstra Heap (priority queue) algorithm
+            /*//<8> Max-Flow problem with Dijkstra Heap (priority queue) algorithm
             var graph = new int[,] { {0, 16, 13, 0, 0, 0},
                 {0, 0, 10, 12, 0, 0},
                 {0, 4, 0, 0, 14, 0},
@@ -86,7 +86,19 @@ namespace DynamicProgramming
             };
             var fordFulkersonAlgo = new MaxFlow_Ford_Fulkerson_DijkstraHeap();
             int maxFlow = fordFulkersonAlgo.MaxFlowProblem_FordFulkerson_DijkstraHeap(graph, 0, 5);
-            Console.WriteLine("Max flow = " + maxFlow);
+            Console.WriteLine("Max flow = " + maxFlow);*/
+
+            //<9> Max Bipartite matching problem
+            int[,] bpGraph = {  {0, 1, 1, 0, 0, 0},
+                        {1, 0, 0, 1, 0, 0},
+                        {0, 0, 1, 0, 0, 0},
+                        {0, 0, 1, 1, 0, 0},
+                        {0, 0, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 0, 1}
+                      };
+            var maxEdges = new MaxBipartiteMatching_JobApplications();
+            int totalApplicants = maxEdges.HowMayApplicantsCanGetJobs(bpGraph);
+            Console.WriteLine("Maximum number of applicants that can get job is " + totalApplicants);
 
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
