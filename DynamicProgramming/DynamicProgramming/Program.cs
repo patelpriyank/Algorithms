@@ -8,6 +8,7 @@ using DynamicProgramming.Graph;
 using DynamicProgramming.Graph.MaxBipartite_Problems;
 using DynamicProgramming.Greedy;
 using DynamicProgramming.Helpers;
+using DynamicProgramming.ProgrammingPerls;
 
 namespace DynamicProgramming
 {
@@ -101,7 +102,7 @@ namespace DynamicProgramming
             int totalApplicants = maxEdges.HowMayApplicantsCanGetJobs(bpGraph);
             Console.WriteLine("Maximum number of applicants that can get job is " + totalApplicants);*/
 
-            //<10> Parking spot problem - Max Bipartite matching
+           /* //<10> Parking spot problem - Max Bipartite matching
             var parkingSpot = new ParkingSpot();
             String[] parkingGraph = new[]
             {
@@ -113,7 +114,21 @@ namespace DynamicProgramming
                 "XXXXXXXXXXX"
             };
             int mintime = parkingSpot.MinTimeToFindParkingSpot(parkingGraph);
-            Console.WriteLine("Maximum it takes to find parking spot for all cars is " + mintime);
+            Console.WriteLine("Maximum it takes to find parking spot for all cars is " + mintime);*/
+
+            string[] arr = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
+/*
+            //<11> Programming perls - Jugling algo
+            var rotateVector = new RotateVector_JuglingAlgo();
+            var result = rotateVector.Rotate(arr, 3);
+*/
+
+            //<12> Programming perls - Block swap
+            var rotateWithBlockSwap = new RotateVector_BlockSwap();
+            var result = rotateWithBlockSwap.BlockSwap(arr, 3);
+
+
+
 
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
