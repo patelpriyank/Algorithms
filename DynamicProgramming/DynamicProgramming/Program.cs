@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DynamicProgramming.Graph;
+using DynamicProgramming.Graph.MaxBipartite_Problems;
 using DynamicProgramming.Greedy;
 using DynamicProgramming.Helpers;
 
@@ -88,7 +89,7 @@ namespace DynamicProgramming
             int maxFlow = fordFulkersonAlgo.MaxFlowProblem_FordFulkerson_DijkstraHeap(graph, 0, 5);
             Console.WriteLine("Max flow = " + maxFlow);*/
 
-            //<9> Max Bipartite matching problem
+          /*  //<9> Max Bipartite matching problem
             int[,] bpGraph = {  {0, 1, 1, 0, 0, 0},
                         {1, 0, 0, 1, 0, 0},
                         {0, 0, 1, 0, 0, 0},
@@ -98,7 +99,21 @@ namespace DynamicProgramming
                       };
             var maxEdges = new MaxBipartiteMatching_JobApplications();
             int totalApplicants = maxEdges.HowMayApplicantsCanGetJobs(bpGraph);
-            Console.WriteLine("Maximum number of applicants that can get job is " + totalApplicants);
+            Console.WriteLine("Maximum number of applicants that can get job is " + totalApplicants);*/
+
+            //<10> Parking spot problem - Max Bipartite matching
+            var parkingSpot = new ParkingSpot();
+            String[] parkingGraph = new[]
+            {
+                "XXXXXXXXXXX",
+                "X......XPPX",
+                "XC...P.XPPX",
+                "X......X..X",
+                "X....C....X",
+                "XXXXXXXXXXX"
+            };
+            int mintime = parkingSpot.MinTimeToFindParkingSpot(parkingGraph);
+            Console.WriteLine("Maximum it takes to find parking spot for all cars is " + mintime);
 
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;

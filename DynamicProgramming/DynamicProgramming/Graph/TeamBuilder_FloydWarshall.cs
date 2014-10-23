@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DynamicProgramming
+namespace DynamicProgramming.Graph
 {
-    public class TeamBuilder
+    public class TeamBuilder_FloydWarshall
     {
         public int[] SpecialLocations(String[] paths)
         {
