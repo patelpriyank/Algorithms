@@ -123,11 +123,12 @@ namespace DynamicProgramming
             var result = rotateVector.Rotate(arr, 3);
 */
 
-            //<12> Programming perls - Block swap
+            /*//<12> Programming perls - Block swap
             var rotateWithBlockSwap = new RotateVector_BlockSwap();
-            var result = rotateWithBlockSwap.BlockSwap(arr, 3);
+            var result = rotateWithBlockSwap.BlockSwap(arr, 3);*/
 
-
+            var rotateReverse = new RotateVector_ReverseArray();
+            rotateReverse.ReverseArray(arr, 3);
 
 
             watch.Stop();
