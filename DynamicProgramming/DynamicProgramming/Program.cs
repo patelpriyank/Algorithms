@@ -132,10 +132,13 @@ namespace DynamicProgramming
             rotateReverse.ReverseArray(arr, 3);*/
 
             //<13> Binary search
-            var fairlWorkload = new FairWorkload();
+            /*var fairlWorkload = new FairWorkload();
             int[] folders = new[] {10, 20, 30, 40, 50, 60, 70, 80, 90};
             int minFoldersPerWorker = fairlWorkload.GetMostWork(folders, 3);
-            Console.WriteLine("Maximum amount of folders that a worker would have to look through is " + minFoldersPerWorker);
+            Console.WriteLine("Maximum amount of folders that a worker would have to look through is " + minFoldersPerWorker);*/
+
+            var interestRate = new AutoLoan();
+            var yearlyInterestRate = interestRate.InterestRate(2000, 510, 4);
 
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;

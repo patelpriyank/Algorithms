@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BinarySearch\AutoLoan.cs" />
     <Compile Include="BinarySearch\FairWorkload.cs" />
     <Compile Include="Dynamic Programing Technique\BadNeighbors.cs" />
     <Compile Include="Graph\Circuit.cs" />
