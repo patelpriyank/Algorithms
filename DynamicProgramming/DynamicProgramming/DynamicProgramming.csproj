@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BinarySearch\FairWorkload.cs" />
     <Compile Include="Dynamic Programing Technique\BadNeighbors.cs" />
     <Compile Include="Graph\Circuit.cs" />
     <Compile Include="Graph\Dijkstra-BFS-With-HEAP\DijkstraHeap2.cs" />
