@@ -137,8 +137,19 @@ namespace DynamicProgramming
             int minFoldersPerWorker = fairlWorkload.GetMostWork(folders, 3);
             Console.WriteLine("Maximum amount of folders that a worker would have to look through is " + minFoldersPerWorker);*/
 
-            var interestRate = new AutoLoan();
-            var yearlyInterestRate = interestRate.InterestRate(2000, 510, 4);
+            /*var interestRate = new AutoLoan();
+            var yearlyInterestRate = interestRate.InterestRate(2000, 510, 4);*/
+
+          /*  int[] array = new[] { 4, 4, 4, 4, 4 };
+            var worldPeace = new WorldPeace_GreedyAlgo();
+            long totalGroups =  worldPeace.NumGroups(4, array);
+            Console.WriteLine("Total possible groups are " + totalGroups);*/
+
+            //<14> Graduation with Max Bipartite
+            var grad = new Graduation();
+            String classesTaken = "A";
+            var requirements = new[] { "2ABC", "2CDE" };
+            Console.WriteLine("The classes that the student needs to take in order to graduate are " + grad.MoreClasses(classesTaken, requirements));
 
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
